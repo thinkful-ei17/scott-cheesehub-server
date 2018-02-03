@@ -50,8 +50,12 @@ app.get('/api/cheeses', (req, res)=>{
 });
 
 app.post('/api/cheeses', (req, res) => {
-  const newCheese = req.body.cheese;
-  cheeses.push(newCheese);
+  let {newCheese} = req.body;
+  
+  newCheese = newCheese.split(' ');
+  newCheese = newCheese.map(cheese => `${cheese.charAt(0).toUpperCase()}${cheese.slice(1)}`);
+  
+  cheeses.push(newCheese.join(' '));
 
   return res.status(201).json(cheeses);
 });
